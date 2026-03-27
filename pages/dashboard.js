@@ -76,9 +76,7 @@ export default function Dashboard() {
   return (
     <div style={s.page}>
       <header style={s.header}>
-        <div style={s.logo}>
-          <img src="/logo.png" alt="Elevated Communication" style={{ height: 40, objectFit: 'contain' }} />
-        </div>
+        <img src="/logo.png" alt="Elevated Communication" style={{ height: 56, objectFit: 'contain' }} />
         <div style={s.headerRight}>
           <span style={s.userEmail}>{user?.email}</span>
           <button onClick={signOut} style={s.signOutBtn}>Sign out</button>
@@ -191,28 +189,38 @@ export default function Dashboard() {
 
 const s = {
   page: { minHeight: '100vh', background: '#f8f7fa' },
-  header: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem', height: 64, borderBottom: '1px solid rgba(26,31,99,0.1)', background: '#1a1f63', position: 'sticky', top: 0, zIndex: 10 },
-  logo: { display: 'flex', alignItems: 'center' },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0 1.5rem',
+    height: 72,
+    borderBottom: '2px solid #1a1f63',
+    background: '#ffffff',
+    position: 'sticky',
+    top: 0,
+    zIndex: 10,
+  },
   headerRight: { display: 'flex', alignItems: 'center', gap: 12 },
-  userEmail: { fontSize: 13, color: 'rgba(255,255,255,0.65)' },
-  signOutBtn: { fontSize: 13, color: '#fff', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '5px 12px', cursor: 'pointer' },
+  userEmail: { fontSize: 13, color: '#5a5f8a' },
+  signOutBtn: { fontSize: 13, color: '#1a1f63', background: 'none', border: '1.5px solid #1a1f63', borderRadius: 8, padding: '5px 14px', cursor: 'pointer', fontWeight: 500 },
   main: { maxWidth: 900, margin: '0 auto', padding: '1.5rem' },
   statsRow: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10, marginBottom: '1.5rem' },
-  statCard: { background: '#fff', border: '1px solid rgba(26,31,99,0.08)', borderRadius: '12px', padding: '14px 16px', boxShadow: '0 1px 8px rgba(26,31,99,0.04)' },
+  statCard: { background: '#fff', border: '1.5px solid #1a1f63', borderRadius: '12px', padding: '14px 16px' },
   statLabel: { fontSize: 12, color: '#5a5f8a', marginBottom: 4 },
   statVal: { fontSize: 24, fontWeight: 600 },
   toolbar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginBottom: '1rem', flexWrap: 'wrap' },
   filters: { display: 'flex', gap: 8 },
-  select: { background: '#fff', border: '1px solid rgba(26,31,99,0.15)', borderRadius: 8, color: '#1a1f63', padding: '7px 10px', fontSize: 13 },
-  addBtn: { background: '#e05fa0', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' },
+  select: { background: '#fff', border: '1.5px solid #1a1f63', borderRadius: 8, color: '#1a1f63', padding: '7px 10px', fontSize: 13 },
+  addBtn: { background: '#e05fa0', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 18px', fontSize: 13, fontWeight: 600, cursor: 'pointer' },
   jobList: { display: 'flex', flexDirection: 'column', gap: 10 },
-  jobCard: { background: '#fff', border: '1px solid rgba(26,31,99,0.08)', borderRadius: '14px', padding: '1rem 1.25rem', boxShadow: '0 1px 8px rgba(26,31,99,0.04)' },
+  jobCard: { background: '#fff', border: '1.5px solid #1a1f63', borderRadius: '14px', padding: '1rem 1.25rem' },
   jobTop: { display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 8 },
   jobName: { fontSize: 15, fontWeight: 600, color: '#1a1f63' },
   jobAddr: { fontSize: 12, color: '#5a5f8a', marginTop: 2 },
   jobActions: { display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 },
   badge: { fontSize: 11, padding: '3px 10px', borderRadius: 99, fontWeight: 600 },
-  miniSelect: { background: '#f8f7fa', border: '1px solid rgba(26,31,99,0.12)', borderRadius: 6, color: '#5a5f8a', padding: '3px 6px', fontSize: 11 },
+  miniSelect: { background: '#f8f7fa', border: '1px solid rgba(26,31,99,0.2)', borderRadius: 6, color: '#5a5f8a', padding: '3px 6px', fontSize: 11 },
   jobDesc: { fontSize: 13, color: '#5a5f8a', lineHeight: 1.5, marginBottom: 10 },
   jobFoot: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   techPill: { display: 'flex', alignItems: 'center', gap: 7 },
@@ -220,11 +228,11 @@ const s = {
   delBtn: { fontSize: 11, color: '#dc2626', background: 'none', border: 'none', padding: '2px 6px', borderRadius: 6, cursor: 'pointer' },
   empty: { textAlign: 'center', padding: '3rem', color: '#5a5f8a', fontSize: 14 },
   modalOverlay: { position: 'fixed', inset: 0, background: 'rgba(26,31,99,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', zIndex: 50 },
-  modal: { background: '#fff', border: '1px solid rgba(26,31,99,0.12)', borderRadius: '16px', padding: '1.75rem', width: '100%', maxWidth: 420, boxShadow: '0 8px 40px rgba(26,31,99,0.12)' },
+  modal: { background: '#fff', border: '1.5px solid #1a1f63', borderRadius: '16px', padding: '1.75rem', width: '100%', maxWidth: 420, boxShadow: '0 8px 40px rgba(26,31,99,0.12)' },
   modalTitle: { fontSize: 17, fontWeight: 600, color: '#1a1f63', marginBottom: '1.25rem' },
   field: { marginBottom: '1rem' },
   fieldLabel: { display: 'block', fontSize: 12, color: '#5a5f8a', marginBottom: 5, fontWeight: 500 },
-  input: { width: '100%', background: '#f8f7fa', border: '1px solid rgba(26,31,99,0.15)', borderRadius: 8, color: '#1a1f63', padding: '9px 12px', fontSize: 13 },
+  input: { width: '100%', background: '#f8f7fa', border: '1.5px solid rgba(26,31,99,0.2)', borderRadius: 8, color: '#1a1f63', padding: '9px 12px', fontSize: 13 },
   modalBtns: { display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: '1.25rem' },
-  cancelBtn: { background: 'none', border: '1px solid rgba(26,31,99,0.15)', borderRadius: 8, color: '#5a5f8a', padding: '8px 16px', fontSize: 13, cursor: 'pointer' },
+  cancelBtn: { background: 'none', border: '1.5px solid #1a1f63', borderRadius: 8, color: '#1a1f63', padding: '8px 16px', fontSize: 13, cursor: 'pointer' },
 }
