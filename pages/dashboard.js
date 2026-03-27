@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import { supabase } from '../lib/supabase'
 
 const STATUS_COLORS = {
-  'Pending':     { bg: 'rgba(245,158,11,0.12)', color: '#f59e0b' },
-  'In Progress': { bg: 'rgba(79,142,247,0.12)', color: '#4f8ef7' },
-  'Done':        { bg: 'rgba(34,197,94,0.12)',  color: '#22c55e' },
+  'Pending':     { bg: 'rgba(217,119,6,0.1)', color: '#b45309' },
+  'In Progress': { bg: 'rgba(224,95,160,0.12)', color: '#c04080' },
+  'Done':        { bg: 'rgba(22,163,74,0.1)',  color: '#15803d' },
 }
 
 export default function Dashboard() {
@@ -75,11 +75,9 @@ export default function Dashboard() {
 
   return (
     <div style={s.page}>
-      {/* Header */}
       <header style={s.header}>
         <div style={s.logo}>
-          <span style={{ fontSize: 20 }}>⚡</span>
-          <span style={s.logoText}>Elevated Communications</span>
+          <img src="/logo.png" alt="Elevated Communication" style={{ height: 40, objectFit: 'contain' }} />
         </div>
         <div style={s.headerRight}>
           <span style={s.userEmail}>{user?.email}</span>
@@ -88,22 +86,20 @@ export default function Dashboard() {
       </header>
 
       <main style={s.main}>
-        {/* Stats */}
         <div style={s.statsRow}>
           {[
-            { label: 'Total jobs', value: stats.total },
-            { label: 'Pending', value: stats.pending, color: '#f59e0b' },
-            { label: 'In progress', value: stats.inProgress, color: '#4f8ef7' },
-            { label: 'Done', value: stats.done, color: '#22c55e' },
+            { label: 'Total jobs', value: stats.total, color: '#1a1f63' },
+            { label: 'Pending', value: stats.pending, color: '#b45309' },
+            { label: 'In progress', value: stats.inProgress, color: '#c04080' },
+            { label: 'Done', value: stats.done, color: '#15803d' },
           ].map(st => (
             <div key={st.label} style={s.statCard}>
               <div style={s.statLabel}>{st.label}</div>
-              <div style={{ ...s.statVal, color: st.color || 'var(--text)' }}>{st.value}</div>
+              <div style={{ ...s.statVal, color: st.color }}>{st.value}</div>
             </div>
           ))}
         </div>
 
-        {/* Toolbar */}
         <div style={s.toolbar}>
           <div style={s.filters}>
             <select value={filterTech} onChange={e => setFilterTech(e.target.value)} style={s.select}>
@@ -120,9 +116,8 @@ export default function Dashboard() {
           <button onClick={() => setShowModal(true)} style={s.addBtn}>+ Add job</button>
         </div>
 
-        {/* Job list */}
         {loading ? (
-          <p style={{ color: 'var(--text2)', padding: '2rem 0' }}>Loading jobs…</p>
+          <p style={{ color: '#5a5f8a', padding: '2rem 0' }}>Loading jobs…</p>
         ) : filtered.length === 0 ? (
           <div style={s.empty}>No jobs found. Hit "Add job" to create one.</div>
         ) : (
@@ -136,11 +131,7 @@ export default function Dashboard() {
                   </div>
                   <div style={s.jobActions}>
                     <span style={{ ...s.badge, ...STATUS_COLORS[job.status] }}>{job.status}</span>
-                    <select
-                      value={job.status}
-                      onChange={e => updateStatus(job.id, e.target.value)}
-                      style={s.miniSelect}
-                    >
+                    <select value={job.status} onChange={e => updateStatus(job.id, e.target.value)} style={s.miniSelect}>
                       <option>Pending</option>
                       <option>In Progress</option>
                       <option>Done</option>
@@ -151,7 +142,7 @@ export default function Dashboard() {
                 <div style={s.jobFoot}>
                   <div style={s.techPill}>
                     <div style={s.avatar}>{job.assigned_tech.slice(0,2).toUpperCase()}</div>
-                    <span style={{ fontSize: 13, color: 'var(--text2)' }}>{job.assigned_tech}</span>
+                    <span style={{ fontSize: 13, color: '#5a5f8a' }}>{job.assigned_tech}</span>
                   </div>
                   <button onClick={() => deleteJob(job.id)} style={s.delBtn}>Remove</button>
                 </div>
@@ -161,7 +152,6 @@ export default function Dashboard() {
         )}
       </main>
 
-      {/* Add Job Modal */}
       {showModal && (
         <div style={s.modalOverlay} onClick={e => e.target === e.currentTarget && setShowModal(false)}>
           <div style={s.modal}>
@@ -173,22 +163,12 @@ export default function Dashboard() {
             ].map(f => (
               <div key={f.key} style={s.field}>
                 <label style={s.fieldLabel}>{f.label}</label>
-                <input
-                  style={s.input}
-                  placeholder={f.placeholder}
-                  value={form[f.key]}
-                  onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
-                />
+                <input style={s.input} placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
               </div>
             ))}
             <div style={s.field}>
               <label style={s.fieldLabel}>Description / notes</label>
-              <textarea
-                style={{ ...s.input, height: 80, resize: 'vertical' }}
-                placeholder="Describe the job…"
-                value={form.description}
-                onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
-              />
+              <textarea style={{ ...s.input, height: 80, resize: 'vertical' }} placeholder="Describe the job…" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
             </div>
             <div style={s.field}>
               <label style={s.fieldLabel}>Status</label>
@@ -210,42 +190,41 @@ export default function Dashboard() {
 }
 
 const s = {
-  page: { minHeight: '100vh', background: 'var(--bg)' },
-  header: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem', height: 58, borderBottom: '1px solid var(--border)', background: 'var(--bg2)', position: 'sticky', top: 0, zIndex: 10 },
-  logo: { display: 'flex', alignItems: 'center', gap: 10 },
-  logoText: { fontSize: 15, fontWeight: 500 },
+  page: { minHeight: '100vh', background: '#f8f7fa' },
+  header: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem', height: 64, borderBottom: '1px solid rgba(26,31,99,0.1)', background: '#1a1f63', position: 'sticky', top: 0, zIndex: 10 },
+  logo: { display: 'flex', alignItems: 'center' },
   headerRight: { display: 'flex', alignItems: 'center', gap: 12 },
-  userEmail: { fontSize: 13, color: 'var(--text2)' },
-  signOutBtn: { fontSize: 13, color: 'var(--text2)', background: 'none', border: '1px solid var(--border)', borderRadius: 8, padding: '5px 12px' },
+  userEmail: { fontSize: 13, color: 'rgba(255,255,255,0.65)' },
+  signOutBtn: { fontSize: 13, color: '#fff', background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '5px 12px', cursor: 'pointer' },
   main: { maxWidth: 900, margin: '0 auto', padding: '1.5rem' },
   statsRow: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10, marginBottom: '1.5rem' },
-  statCard: { background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '14px 16px' },
-  statLabel: { fontSize: 12, color: 'var(--text2)', marginBottom: 4 },
+  statCard: { background: '#fff', border: '1px solid rgba(26,31,99,0.08)', borderRadius: '12px', padding: '14px 16px', boxShadow: '0 1px 8px rgba(26,31,99,0.04)' },
+  statLabel: { fontSize: 12, color: '#5a5f8a', marginBottom: 4 },
   statVal: { fontSize: 24, fontWeight: 600 },
   toolbar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginBottom: '1rem', flexWrap: 'wrap' },
   filters: { display: 'flex', gap: 8 },
-  select: { background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text)', padding: '7px 10px', fontSize: 13 },
-  addBtn: { background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 500 },
+  select: { background: '#fff', border: '1px solid rgba(26,31,99,0.15)', borderRadius: 8, color: '#1a1f63', padding: '7px 10px', fontSize: 13 },
+  addBtn: { background: '#e05fa0', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' },
   jobList: { display: 'flex', flexDirection: 'column', gap: 10 },
-  jobCard: { background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '1rem 1.25rem' },
+  jobCard: { background: '#fff', border: '1px solid rgba(26,31,99,0.08)', borderRadius: '14px', padding: '1rem 1.25rem', boxShadow: '0 1px 8px rgba(26,31,99,0.04)' },
   jobTop: { display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 8 },
-  jobName: { fontSize: 15, fontWeight: 500 },
-  jobAddr: { fontSize: 12, color: 'var(--text2)', marginTop: 2 },
+  jobName: { fontSize: 15, fontWeight: 600, color: '#1a1f63' },
+  jobAddr: { fontSize: 12, color: '#5a5f8a', marginTop: 2 },
   jobActions: { display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 },
-  badge: { fontSize: 11, padding: '3px 10px', borderRadius: 99, fontWeight: 500 },
-  miniSelect: { background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text2)', padding: '3px 6px', fontSize: 11 },
-  jobDesc: { fontSize: 13, color: 'var(--text2)', lineHeight: 1.5, marginBottom: 10 },
+  badge: { fontSize: 11, padding: '3px 10px', borderRadius: 99, fontWeight: 600 },
+  miniSelect: { background: '#f8f7fa', border: '1px solid rgba(26,31,99,0.12)', borderRadius: 6, color: '#5a5f8a', padding: '3px 6px', fontSize: 11 },
+  jobDesc: { fontSize: 13, color: '#5a5f8a', lineHeight: 1.5, marginBottom: 10 },
   jobFoot: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   techPill: { display: 'flex', alignItems: 'center', gap: 7 },
-  avatar: { width: 24, height: 24, borderRadius: '50%', background: 'rgba(79,142,247,0.15)', color: '#4f8ef7', fontSize: 10, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  delBtn: { fontSize: 11, color: 'var(--danger)', background: 'none', border: 'none', padding: '2px 6px', borderRadius: 6 },
-  empty: { textAlign: 'center', padding: '3rem', color: 'var(--text2)', fontSize: 14 },
-  modalOverlay: { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', zIndex: 50 },
-  modal: { background: 'var(--bg2)', border: '1px solid var(--border2)', borderRadius: 'var(--radius-lg)', padding: '1.75rem', width: '100%', maxWidth: 420 },
-  modalTitle: { fontSize: 17, fontWeight: 500, marginBottom: '1.25rem' },
+  avatar: { width: 26, height: 26, borderRadius: '50%', background: 'rgba(224,95,160,0.12)', color: '#c04080', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' },
+  delBtn: { fontSize: 11, color: '#dc2626', background: 'none', border: 'none', padding: '2px 6px', borderRadius: 6, cursor: 'pointer' },
+  empty: { textAlign: 'center', padding: '3rem', color: '#5a5f8a', fontSize: 14 },
+  modalOverlay: { position: 'fixed', inset: 0, background: 'rgba(26,31,99,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', zIndex: 50 },
+  modal: { background: '#fff', border: '1px solid rgba(26,31,99,0.12)', borderRadius: '16px', padding: '1.75rem', width: '100%', maxWidth: 420, boxShadow: '0 8px 40px rgba(26,31,99,0.12)' },
+  modalTitle: { fontSize: 17, fontWeight: 600, color: '#1a1f63', marginBottom: '1.25rem' },
   field: { marginBottom: '1rem' },
-  fieldLabel: { display: 'block', fontSize: 12, color: 'var(--text2)', marginBottom: 5, fontWeight: 500 },
-  input: { width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text)', padding: '9px 12px', fontSize: 13 },
+  fieldLabel: { display: 'block', fontSize: 12, color: '#5a5f8a', marginBottom: 5, fontWeight: 500 },
+  input: { width: '100%', background: '#f8f7fa', border: '1px solid rgba(26,31,99,0.15)', borderRadius: 8, color: '#1a1f63', padding: '9px 12px', fontSize: 13 },
   modalBtns: { display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: '1.25rem' },
-  cancelBtn: { background: 'none', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text2)', padding: '8px 16px', fontSize: 13 },
+  cancelBtn: { background: 'none', border: '1px solid rgba(26,31,99,0.15)', borderRadius: 8, color: '#5a5f8a', padding: '8px 16px', fontSize: 13, cursor: 'pointer' },
 }

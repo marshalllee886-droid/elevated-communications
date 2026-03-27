@@ -25,34 +25,19 @@ export default function Login() {
   return (
     <div style={styles.page}>
       <div style={styles.card}>
-        <div style={styles.logo}>
-          <span style={styles.logoIcon}>⚡</span>
-          <span style={styles.logoText}>Elevated Communications</span>
+        <div style={styles.logoWrap}>
+          <img src="/logo.png" alt="Elevated Communication" style={{ width: 200, objectFit: 'contain' }} />
         </div>
         <h1 style={styles.heading}>Welcome back</h1>
         <p style={styles.sub}>Sign in to view your jobs</p>
         <form onSubmit={handleLogin} style={styles.form}>
           <div style={styles.field}>
             <label style={styles.label}>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              style={styles.input}
-              placeholder="you@example.com"
-            />
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required style={styles.input} placeholder="you@example.com" />
           </div>
           <div style={styles.field}>
             <label style={styles.label}>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              style={styles.input}
-              placeholder="••••••••"
-            />
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required style={styles.input} placeholder="••••••••" />
           </div>
           {error && <p style={styles.error}>{error}</p>}
           <button type="submit" style={styles.btn} disabled={loading}>
@@ -71,49 +56,49 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '1rem',
-    background: 'var(--bg)',
+    background: 'linear-gradient(135deg, #f8f7fa 0%, #ede8f5 100%)',
   },
   card: {
-    background: 'var(--bg2)',
-    border: '1px solid var(--border)',
-    borderRadius: 'var(--radius-lg)',
+    background: '#ffffff',
+    border: '1px solid rgba(26,31,99,0.1)',
+    borderRadius: '20px',
     padding: '2.5rem',
     width: '100%',
     maxWidth: '400px',
+    boxShadow: '0 4px 40px rgba(26,31,99,0.08)',
   },
-  logo: {
+  logoWrap: {
     display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    marginBottom: '2rem',
+    justifyContent: 'center',
+    marginBottom: '1.5rem',
+    background: '#1a1f63',
+    borderRadius: '12px',
+    padding: '16px',
   },
-  logoIcon: { fontSize: '22px' },
-  logoText: { fontSize: '15px', fontWeight: 500, color: 'var(--text)' },
-  heading: { fontSize: '22px', fontWeight: 600, color: 'var(--text)', marginBottom: '6px' },
-  sub: { fontSize: '14px', color: 'var(--text2)', marginBottom: '1.75rem' },
+  heading: { fontSize: '22px', fontWeight: 600, color: '#1a1f63', marginBottom: '6px', textAlign: 'center' },
+  sub: { fontSize: '14px', color: '#5a5f8a', marginBottom: '1.75rem', textAlign: 'center' },
   form: { display: 'flex', flexDirection: 'column', gap: '1rem' },
   field: { display: 'flex', flexDirection: 'column', gap: '6px' },
-  label: { fontSize: '13px', color: 'var(--text2)', fontWeight: 500 },
+  label: { fontSize: '13px', color: '#5a5f8a', fontWeight: 500 },
   input: {
-    background: 'var(--bg3)',
-    border: '1px solid var(--border)',
-    borderRadius: 'var(--radius)',
-    color: 'var(--text)',
+    background: '#f8f7fa',
+    border: '1px solid rgba(26,31,99,0.15)',
+    borderRadius: '10px',
+    color: '#1a1f63',
     padding: '10px 14px',
     fontSize: '14px',
     outline: 'none',
-    transition: 'border-color 0.15s',
   },
-  error: { fontSize: '13px', color: 'var(--danger)', background: 'rgba(239,68,68,0.08)', padding: '10px 12px', borderRadius: '8px' },
+  error: { fontSize: '13px', color: '#dc2626', background: 'rgba(220,38,38,0.06)', padding: '10px 12px', borderRadius: '8px' },
   btn: {
-    background: 'var(--accent)',
+    background: '#e05fa0',
     color: '#fff',
     border: 'none',
-    borderRadius: 'var(--radius)',
-    padding: '11px',
+    borderRadius: '10px',
+    padding: '12px',
     fontSize: '14px',
-    fontWeight: 500,
+    fontWeight: 600,
     marginTop: '4px',
-    transition: 'opacity 0.15s',
+    cursor: 'pointer',
   },
 }
