@@ -26,7 +26,7 @@ export default function Login() {
     <div style={styles.page}>
       <div style={styles.card}>
         <div style={styles.logoWrap}>
-          <img src="/logo.png" alt="Elevated Communication" style={{ width: 200, objectFit: 'contain' }} />
+          <img src="/logo.png" alt="Elevated Communication" style={{ width: 280, objectFit: 'contain' }} />
         </div>
         <h1 style={styles.heading}>Welcome back</h1>
         <p style={styles.sub}>Sign in to view your jobs</p>
@@ -64,16 +64,13 @@ const styles = {
     borderRadius: '20px',
     padding: '2.5rem',
     width: '100%',
-    maxWidth: '400px',
+    maxWidth: '420px',
     boxShadow: '0 4px 40px rgba(26,31,99,0.08)',
   },
   logoWrap: {
     display: 'flex',
     justifyContent: 'center',
     marginBottom: '1.5rem',
-    background: '#1a1f63',
-    borderRadius: '12px',
-    padding: '16px',
   },
   heading: { fontSize: '22px', fontWeight: 600, color: '#1a1f63', marginBottom: '6px', textAlign: 'center' },
   sub: { fontSize: '14px', color: '#5a5f8a', marginBottom: '1.75rem', textAlign: 'center' },
